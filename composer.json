@@ -3,7 +3,7 @@
 	"description": "Kirby Plugin to deploy Kirby websites' code via git, push-web-hook, PHP",
 	"license": "MIT",
 	"type": "kirby-plugin",
-	"version": "0.0.1",
+	"version": "1.0.1",
 	"authors": [
 		{
 			"name": "Leo Sauermann",
