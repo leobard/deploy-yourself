@@ -20,6 +20,9 @@ Useful when deployment of changes of a kirby website via FTP or RSYNC or direct 
 
 ## Installation
 
+Install it via composer:
+`composer require leobard/deploy-yourself`
+
 Copy the plugin into your plugins folder.
 
 Copy `deploy-yourself-hook.php` to the main/root folder of your webserver where you also placed the kirby .htaccess and index.php. Adapt the paths there if necessary.
@@ -62,23 +65,6 @@ There is a dryrun option which will not run commands but only log them.
 ## Custom commands to run after pull
 After the initial pull, you can run commands on the server using `exec()`. Configure them as array in `post_pull_cmds`.
 
-## Composer?
-
-`composer require leobard/deploy-yourself` does not work yet as this is not published on the composer repo.
-
-To satisfy the inner monk of having it in your composer.json, add:
-```
-	"repositories": [
-		{
-			"type": "path",
-			"url": "site/plugins/deploy-yourself"
-		}
-    ],
-    "require": {
-		"leobard/deploy-yourself": "*"
-    },
-		"leobard/deploy-yourself": "*"
-```
 
 ## Support and development
 
