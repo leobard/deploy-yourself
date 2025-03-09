@@ -1,0 +1,24 @@
+{
+	"name": "leobard/deploy-yourself",
+	"description": "Kirby Plugin to deploy Kirby websites' code via git, push-web-hook, PHP",
+	"license": "MIT",
+	"type": "kirby-plugin",
+	"version": "0.0.1",
+	"authors": [
+		{
+			"name": "Leo Sauermann",
+			"email": "devspam@leobard.net"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"Leobard\\DeployYourself\\": "src/"
+		}
+	},
+	"config": {
+		"optimize-autoloader": true
+	}
+}
