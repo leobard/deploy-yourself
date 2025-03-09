@@ -165,13 +165,13 @@ class DeployYourself {
   function log_start() {
     if (!is_dir($this->config('logfolder'))) {
       if (mkdir($this->config('logfolder'), 0777, true) !== true) {
-        throw new Exception('Cannot create logdir '.$this->config('logfolder'));
+        throw new \Exception('Cannot create logdir '.$this->config('logfolder'));
       }
     }
     $isodatetime=gmdate(self::ISODATETIME_FILENAME);
     $this->logfilename = $this->config('logfolder') . str_replace('{ISODATETIME}', $isodatetime, $this->config('logfilename'));
     if (!($this->logfilehandle = fopen($this->logfilename, "w"))) {
-      throw new Exception('Cannot open logfile '.$logfilename);
+      throw new \Exception('Cannot open logfile '.$logfilename);
     }
     $this->log('notice', 'Starting log, verbosity '.$this->config('logverbosity'));
     if ($this->log_is('debug')) {
@@ -203,7 +203,7 @@ class DeployYourself {
     $logretain = $this->config('logretain');
     if (is_int($logretain)  && $logretain >= 1) {
       // retain only the number of files defined
-      $files = glob($this->config('logfolder') . str_replace('{ISODATETIME}', '*', $this->config('logfilename')));
+      $files = $this->log_files_list();
       while (count($files) > $logretain) {
         $deletefilename = array_shift($files);
         
@@ -213,6 +213,32 @@ class DeployYourself {
         } 
       }
     }
+  }
+  
+  /**
+   * Load a logfile and return it as string.
+   * The passed filename must be contained in DeployYourself::log_files_list(),
+   * otherwise an Exception is thrown as we don't want to read any file.
+   * @param String $filename the name of the file as it would be returned by log_files_list
+   * @return String the file contents
+   * @throws Exception if file does not exist or if the $filename is not within log_files_list()
+   */
+  function log_file_load($filename) {
+    if (!is_file($filename)) {
+      throw new \Exception("File $filename does not exist");
+    }
+    if (!in_array($filename, $this->log_files_list())) {
+      throw new \Exception("Security check: File $filename is not a logfile");
+    }
+    return file_get_contents($filename);
+  }
+  
+  /**
+   * list all log files in DeployYourself::config['logfolder'] that conform to the configured 'logfilename' pattern.
+   * @return array of filenames that can be opened with file_get_contents()
+   */
+  function log_files_list() {
+    return glob($this->config('logfolder') . str_replace('{ISODATETIME}', '*', $this->config('logfilename')));
   }
   
   function maintenance_start() {
@@ -291,16 +317,6 @@ class DeployYourself {
         throw new \Exception('token required, wrong token passed: "'.$passedtoken.'"');
       }
     }
-  }
-  
-  
-  function update() {
-    /*
-            'git --git-dir ../web_.git fetch origin 2>&1',
-            'git --git-dir ../web_.git reset --hard origin/dev 2>&1',
-            //'git --git-dir ../web_.git reset --hard HEAD 2>&1',
-            //'git --git-dir ../web_.git merge \'@{u}\' 2>&1',
-     */
   }
 
 }

@@ -35,6 +35,15 @@ Updating Kirby from a route outside of kirby seems better than from within a run
 As default, this plugin will also register the same functionality as Kirby hook:
 `https://example.com/deploy-yourself/hook`.
 
+It is recommended to hide the plugin's Kirby Panel page from non-admin users. Add the following to all non-admin user blueprints, for example `site/blueprints/users/default.yml`. Once [Panel area only for admins](https://forum.getkirby.com/t/panel-area-only-for-admins/32707/5) has a better answer, this step may not be necessary anymore.
+
+```
+...
+permissions:
+  access:
+    deployyourself: false
+```
+
 ## Configuration
 
 Use key `leobard.deploy-yourself`, see documentation in Class src/DeployYourself.php, function config().
@@ -65,6 +74,12 @@ There is a dryrun option which will not run commands but only log them.
 ## Custom commands to run after pull
 After the initial pull, you can run commands on the server using `exec()`. Configure them as array in `post_pull_cmds`.
 
+## Panel area to view log messages
+Log files are listed in a new area "Deploy yourself" in the Kirby panel menu.
+
+The URL path is `/admin/deploy-yourself/index` .
+
+It is only visible for admin users.
 
 ## Support and development
 
