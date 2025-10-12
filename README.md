@@ -83,7 +83,7 @@ It is only visible for admin users.
 
 ## Support and development
 
-This comes AS-IS with no support on a "works for me, Leo Sauermann, no need to add anything" attitiude. 
+This comes AS-IS with "no support" and a "works for me, Leo Sauermann, no need to add anything" attitude. 
 
 If this also "works for you" and you want to improve it, please add issues and pull requests to the github repo. If your additions are useful extensions from the initial state, and your code looks fine in my eyes, we may want to continue together as co-maintainers.
 
